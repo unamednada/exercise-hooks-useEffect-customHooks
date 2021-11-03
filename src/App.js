@@ -4,24 +4,12 @@ import Posts from './components/Posts';
 import Selector from './components/Selector';
 import { Context } from './components/RedditContext';
 import RefreshButton from './components/RefreshButton';
+import LastUpdatedAt from './components/LastUpdatedAt';
 
 class App extends Component {
   componentDidMount() {
     const { fetchPosts } = this.context;
     fetchPosts();
-  }
-
-  renderLastUpdatedAt() {
-    const { selectedSubreddit, postsBySubreddit } = this.context;
-    const { lastUpdated } = postsBySubreddit[selectedSubreddit];
-
-    if (!lastUpdated) return null;
-
-    return (
-      <span>
-        {`Last updated at ${new Date(lastUpdated).toLocaleTimeString()}.`}
-      </span>
-    );
   }
 
   render() {
@@ -33,7 +21,7 @@ class App extends Component {
       <div>
         <Selector />
         <div>
-          {this.renderLastUpdatedAt()}
+          <LastUpdatedAt />
           <RefreshButton />
         </div>
         {isFetching && <h2>Loading...</h2>}
