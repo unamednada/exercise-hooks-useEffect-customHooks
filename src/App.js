@@ -31,6 +31,4 @@ function App() {
 
 }
 
-App.contextType = Context;
-
 export default App;
