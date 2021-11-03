@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Posts from './components/Posts';
 import Selector from './components/Selector';
 import { Context } from './components/RedditContext';
+import RefreshButton from './components/RefreshButton';
 
 class App extends Component {
   componentDidMount() {
@@ -23,22 +24,6 @@ class App extends Component {
     );
   }
 
-  renderRefreshButton() {
-    const { isFetching, refreshSubreddit } = this.context;
-
-    if (isFetching) return null;
-
-    return (
-      <button
-        type="button"
-        onClick={(event) => refreshSubreddit(event)}
-        disabled={isFetching}
-      >
-        Refresh
-      </button>
-    );
-  }
-
   render() {
     const { selectedSubreddit, postsBySubreddit, isFetching } = this.context;
     const { items: posts = [] } = postsBySubreddit[selectedSubreddit];
@@ -49,7 +34,7 @@ class App extends Component {
         <Selector />
         <div>
           {this.renderLastUpdatedAt()}
-          {this.renderRefreshButton()}
+          <RefreshButton />
         </div>
         {isFetching && <h2>Loading...</h2>}
         {!isFetching && isEmpty && <h2>Empty.</h2>}
